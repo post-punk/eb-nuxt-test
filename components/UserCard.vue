@@ -5,7 +5,7 @@
   >
     <img
       class="w-40"
-      :src="user.imageSrc || '/blank-image.jpg'"
+      :src="user.imageSrc || '/placeholder-image.jpg'"
       alt="User image"
     />
 
@@ -22,7 +22,7 @@
               :class="{ invisible: $v.userData.firstName.required }"
               class="text-red-400 h-6 text-sm"
             >
-              This field is necessary
+              First name is necessary
             </p>
           </div>
 
@@ -43,7 +43,7 @@
               :class="{ invisible: $v.userData.lastName.required }"
               class="text-red-400 h-6 text-sm"
             >
-              This field is necessary
+              Last name is necessary
             </p>
           </div>
 
@@ -57,33 +57,35 @@
 
     <div v-if="editMode" class="px-6 py-4">
       <button
-        class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+        class="text-sm bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 border border-transparent rounded"
         :class="{
           'pointer-events-none opacity-60':
             !$v.userData.firstName.required || !$v.userData.lastName.required,
         }"
         @click="applyChanges"
       >
-        Save changes
+        Save
       </button>
+
       <button
-        class="bg-transparent hover:bg-blue-500 text-blue-700 font-semibold hover:text-white py-2 px-4 border border-blue-500 hover:border-transparent rounded"
+        class="text-sm bg-transparent hover:bg-blue-500 text-blue-700 font-semibold hover:text-white py-2 px-4 border border-blue-500 hover:border-transparent rounded"
         @click="cancelChanges"
       >
         Cancel
       </button>
+
+      <button
+        v-if="user.id"
+        class="text-sm text-red-500 font-medium mb-4 border border-red-500 py-2 px-4 rounded hover:bg-red-500 hover:text-white"
+        :class="{
+          'pointer-events-none opacity-60':
+            !$v.userData.firstName.required || !$v.userData.lastName.required,
+        }"
+        @click="deleteUser(user)"
+      >
+        Delete
+      </button>
     </div>
-    <button
-      v-if="editMode"
-      class="text-red-500 font-medium mb-4"
-      :class="{
-        'pointer-events-none opacity-60':
-          !$v.userData.firstName.required || !$v.userData.lastName.required,
-      }"
-      @click="deleteUser(user)"
-    >
-      Delete user
-    </button>
   </div>
 </template>
 

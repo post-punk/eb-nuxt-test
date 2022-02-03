@@ -1,7 +1,8 @@
 <template>
   <div class="flex flex-col p-4">
     <h1 class="font-bold text-lg">
-      Welcome! (this should be invisible because of the middleware redirect)
+      <!-- (this should be invisible because of the middleware redirect) -->
+      Welcome!
     </h1>
     <span>
       Go to
