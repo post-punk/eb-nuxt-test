@@ -31,7 +31,9 @@
 
           <span v-else>
             First name:
-            <span class="font-medium">{{ userCopy.firstName }}</span>
+            <span class="font-medium">
+              {{ userCopy.firstName }}
+            </span>
           </span>
         </div>
 
@@ -53,7 +55,9 @@
 
           <span v-else>
             Last name:
-            <span class="font-medium">{{ userCopy.lastName }}</span>
+            <span class="font-medium">
+              {{ userCopy.lastName }}
+            </span>
           </span>
         </div>
       </div>

@@ -14,8 +14,8 @@
       class="overview-page__user-card-wrapper grid grid-cols-auto sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 lg:gap-6 xl:gap-8"
     >
       <div v-for="user in myUserList" :key="user.id">
-        <nuxt-link :to="`/user/${user.id}`">
-          <user-card v-bind="{ user }" />
+        <nuxt-link :to="`user/${user.id}`">
+          <user-card :user="user" />
         </nuxt-link>
       </div>
     </div>

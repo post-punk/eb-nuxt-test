@@ -47,8 +47,8 @@ export default Vue.extend({
       );
       if (promptConfirmed) {
         this.$store.dispatch("deleteUser", value);
+        this.$router.push("/overview");
       }
-      this.$router.push("/overview");
     },
   },
   async mounted() {

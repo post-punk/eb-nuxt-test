@@ -31,7 +31,7 @@ export const actions = actionTree(
   { state, getters, mutations },
   {
     async setUserList({ state, commit }): Promise<void> {
-      // to avoid needless "requests",
+      // to avoid unnecessary "requests",
       // populate the user list only if it's empty
       if (!state.userList.length) {
         commit(mutationKeys.SET_USER_LIST, userList);

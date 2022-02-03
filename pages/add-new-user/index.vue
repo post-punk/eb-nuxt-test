@@ -10,7 +10,7 @@
       &#8592; Back to overview
     </nuxt-link>
 
-    <user-card :edit-mode="true" @applyChanges="onApplyChanges" />
+    <user-card :edit-mode="true" @applyChanges="addNewUser" />
   </div>
 </template>
 
@@ -24,9 +24,8 @@ export default Vue.extend({
     UserCard,
   },
   methods: {
-    onApplyChanges(value: UserConfig) {
-      console.log(value);
-      this.$store.dispatch("setUser", Object.assign({}, value));
+    addNewUser(user: UserConfig) {
+      this.$store.dispatch("setUser", user);
       this.$router.push("/overview");
     },
   },
