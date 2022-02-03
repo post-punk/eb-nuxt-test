@@ -13,9 +13,10 @@
       <div class="text-xl mb-2">
         <div>
           <div v-if="editMode" class="flex flex-col">
+            <p class="text-sm">First name:</p>
             <input
               :class="{ hidden: $v.userCopy.firstName.$error }"
-              class="w-full border border-gray-400"
+              class="pl-2 w-full border border-gray-400 rounded"
               v-model="userCopy.firstName"
             />
             <p
@@ -36,9 +37,10 @@
 
         <div>
           <div v-if="editMode" class="flex flex-col">
+            <p class="text-sm">Last name:</p>
             <input
               v-if="editMode"
-              class="w-full border border-gray-400"
+              class="pl-2 w-full border border-gray-400 rounded"
               v-model="userCopy.lastName"
             />
             <p
@@ -57,7 +59,7 @@
       </div>
     </div>
 
-    <div v-if="editMode" class="px-6 py-4">
+    <div v-if="editMode" class="w-full px-6 py-4">
       <button
         class="text-sm bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 border border-transparent rounded"
         :class="{
@@ -132,14 +134,14 @@ export default Vue.extend({
         this.$emit("applyChanges", this.userCopy);
       }
     },
+    deleteUser(selectedUser: UserConfig) {
+      if (selectedUser && this.editMode) {
+        this.$emit("deleteUser", selectedUser);
+      }
+    },
     cancelChanges() {
       if (this.editMode) {
         this.userCopy = Object.assign({}, this.user);
-      }
-    },
-    deleteUser(user: UserConfig) {
-      if (user && this.editMode) {
-        this.$emit("deleteUser", user);
       }
     },
   },

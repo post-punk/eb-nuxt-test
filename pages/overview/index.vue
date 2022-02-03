@@ -1,14 +1,13 @@
 <template>
   <div class="overview-page flex flex-col p-4 bg-sky-600 min-h-screen">
     <h1 class="text-4xl font-bold mb-4">User list:</h1>
-
-    <p class="font-medium mb-4">Click on a user card to edit it.</p>
     <nuxt-link
       to="/add-new-user"
-      class="w-36 py-2 px-4 mr-2 mb-2 font-medium text-gray-900 bg-white rounded-lg border border-gray-200 hover:bg-gray-100"
+      class="w-36 hover:font-medium py-2 px-4 rounded bg-white border border-gray-50 mb-2 cursor-pointer font-medium"
     >
       Add new user
     </nuxt-link>
+    <p class="font-medium mb-2">Click on a user card to edit it.</p>
 
     <!-- grid -->
     <div

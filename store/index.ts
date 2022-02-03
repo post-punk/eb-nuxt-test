@@ -46,9 +46,9 @@ export const actions = actionTree(
         userListCopy.splice(userListCopy.indexOf(existingUser), 1, payload);
       } else {
         // if new user:
-        const maxIndex =
+        const maxId =
           Math.max(...userListCopy.map((user) => Number(user.id))) + 1;
-        userListCopy.push({ ...payload, id: maxIndex });
+        userListCopy.push({ ...payload, id: maxId });
       }
 
       commit(mutationKeys.SET_USER_LIST, userListCopy);

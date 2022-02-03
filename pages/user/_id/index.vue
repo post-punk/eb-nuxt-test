@@ -1,15 +1,15 @@
 <template>
   <div
-    class="user-page bg-sky-700 h-screen w-screen p-4 justify-center items-center flex flex-col"
+    class="user-page bg-sky-600 h-screen w-screen p-4 justify-start items-start flex flex-col"
   >
-    <h1 class="text-3xl font-bold mb-4">Edit user:</h1>
-
+    <h1 class="text-4xl font-bold mb-4">Edit user:</h1>
     <nuxt-link
-      class="user-page__back-to-button hover:font-medium py-2 px-4 rounded bg-white border border-gray-50 mb-6 cursor-pointer"
+      class="user-page__back-to-button py-2 px-4 rounded bg-white border border-gray-50 mb-2 cursor-pointer font-medium"
       to="/overview"
     >
-      ← Back to overview
+      &#8592; Back to overview
     </nuxt-link>
+    <p class="font-medium mb-2">Click Cancel to revert changes.</p>
 
     <user-card
       v-if="user && Object.keys(user).length"
