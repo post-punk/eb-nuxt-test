@@ -11,7 +11,13 @@
       ← Back to overview
     </nuxt-link>
 
-    <user-card :edit-mode="true" :user="user" />
+    <user-card
+      v-if="user && Object.keys(user).length"
+      :edit-mode="true"
+      :user="user"
+      @applyChanges="onApplyChanges"
+      @deleteUser="onDeleteUser"
+    />
   </div>
 </template>
 
@@ -29,12 +35,31 @@ export default Vue.extend({
       user: {} as UserConfig,
     };
   },
+  computed: {},
+  methods: {
+    onApplyChanges(value: UserConfig) {
+      this.$store.dispatch("setUser", value);
+      this.$router.push("/overview");
+    },
+    onDeleteUser(value: UserConfig) {
+      const promptConfirmed = window.confirm(
+        `Are you sure that you want to delete ${value.firstName} ${value.lastName} ?`
+      );
+      if (promptConfirmed) {
+        this.$store.dispatch("deleteUser", value);
+      }
+      this.$router.push("/overview");
+    },
+  },
   async mounted() {
-    await this.$nuxt.$store.dispatch("setUserList");
-
-    this.user = this.$store.getters.getUserList.find(
-      (user: UserConfig) => String(user.id) === this.$route.params.id
-    );
+    await this.$store.dispatch("setUserList");
+    // if the user object isn't already passed in as a prop
+    // as is the case on /overview page, find it by route ID
+    if (this.$store.getters.getUserList.length) {
+      this.user = this.$store.getters.getUserList?.find(
+        (user: UserConfig) => String(user.id) === this.$route.params.id
+      );
+    }
   },
 });
 </script>

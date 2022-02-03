@@ -30,14 +30,14 @@ export const mutations = mutationTree(state, {
 export const actions = actionTree(
   { state, getters, mutations },
   {
-    async setUserList({ state, commit }) {
+    async setUserList({ state, commit }): Promise<void> {
       // to avoid needless "requests",
       // populate the user list only if it's empty
       if (!state.userList.length) {
         commit(mutationKeys.SET_USER_LIST, userList);
       }
     },
-    setUser({ state, commit }, payload: UserConfig) {
+    setUser({ state, commit }, payload: UserConfig): void {
       const userListCopy = [...state.userList];
 
       const existingUser = userListCopy.find((user) => user.id === payload.id);
@@ -45,12 +45,15 @@ export const actions = actionTree(
       if (existingUser) {
         userListCopy.splice(userListCopy.indexOf(existingUser), 1, payload);
       } else {
-        userListCopy.push({ ...payload, id: state.userList.length + 1 });
+        // if new user:
+        const maxIndex =
+          Math.max(...userListCopy.map((user) => Number(user.id))) + 1;
+        userListCopy.push({ ...payload, id: maxIndex });
       }
 
       commit(mutationKeys.SET_USER_LIST, userListCopy);
     },
-    deleteUser({ state, commit }, payload: UserConfig) {
+    deleteUser({ state, commit }, payload: UserConfig): void {
       const userListCopy = [...state.userList];
 
       const userToBeDeleted = userListCopy.find(

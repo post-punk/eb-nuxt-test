@@ -10,15 +10,17 @@
       Add new user
     </nuxt-link>
 
+    <!-- grid -->
     <div
       class="overview-page__user-card-wrapper grid grid-cols-auto sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 lg:gap-6 xl:gap-8"
     >
-      <div v-for="(user, userIndex) in myUserList" :key="userIndex">
+      <div v-for="user in myUserList" :key="user.id">
         <nuxt-link :to="`/user/${user.id}`">
           <user-card v-bind="{ user }" />
         </nuxt-link>
       </div>
     </div>
+    <!-- /grid -->
   </div>
 </template>
 
@@ -37,16 +39,8 @@ export default Vue.extend({
     };
   },
   async mounted() {
-    await this.$nuxt.$store.dispatch("setUserList");
-    this.myUserList = this.$nuxt.$store.getters.getUserList;
+    await this.$store.dispatch("setUserList");
+    this.myUserList = this.$store.getters.getUserList;
   },
 });
 </script>
-
-<style lang="scss">
-.overview-page {
-  &__user-card-wrapper {
-    // if needed
-  }
-}
-</style>

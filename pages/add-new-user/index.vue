@@ -11,17 +11,25 @@
       ← Back to overview
     </nuxt-link>
 
-    <user-card :edit-mode="true" />
+    <user-card :edit-mode="true" @applyChanges="onApplyChanges" />
   </div>
 </template>
 
 <script lang="ts">
 import Vue from "vue";
 import UserCard from "@/components/UserCard.vue";
+import { UserConfig } from "@/types/UserConfig";
 
 export default Vue.extend({
   components: {
     UserCard,
+  },
+  methods: {
+    onApplyChanges(value: UserConfig) {
+      console.log(value);
+      this.$store.dispatch("setUser", Object.assign({}, value));
+      this.$router.push("/overview");
+    },
   },
 });
 </script>
