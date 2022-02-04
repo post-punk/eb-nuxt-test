@@ -16,7 +16,10 @@
             <input
               class="pl-2 w-full border rounded bg-white"
               :disabled="!editMode"
-              :class="[!editMode ? 'border-transparent' : 'border-gray-400']"
+              :class="[
+                !editMode ? 'border-transparent' : 'border-gray-400',
+                { 'border-red-500': !$v.userCopy.firstName.required },
+              ]"
               v-model="userCopy.firstName"
             />
             <p
@@ -36,7 +39,10 @@
             <input
               class="pl-2 w-full border rounded bg-white"
               :disabled="!editMode"
-              :class="[!editMode ? 'border-transparent' : 'border-gray-400']"
+              :class="[
+                !editMode ? 'border-transparent' : 'border-gray-400',
+                { 'border-red-500': !$v.userCopy.lastName.required },
+              ]"
               v-model="userCopy.lastName"
             />
             <p

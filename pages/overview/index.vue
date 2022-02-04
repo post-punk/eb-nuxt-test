@@ -34,7 +34,7 @@ export default Vue.extend({
   },
   data() {
     return {
-      userList: this.$store.getters.getUserList,
+      userList: this.$store.getters.getUserList as UserConfig[],
     };
   },
   async mounted() {

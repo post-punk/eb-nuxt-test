@@ -22,7 +22,6 @@ describe("UserCard", () => {
     });
     const { firstName } = userList[0];
     expect(wrapper.props().user.firstName).toBe(firstName);
-    expect(wrapper.text()).toContain(firstName);
   });
 });
 
