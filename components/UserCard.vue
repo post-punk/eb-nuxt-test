@@ -1,7 +1,6 @@
 <template>
   <div
     class="user-card max-w-xs rounded overflow-hidden shadow-lg my-2 bg-white flex flex-col items-center pt-2"
-    :class="{ 'h-64': !editMode }"
   >
     <img
       class="w-40 rounded"
@@ -12,11 +11,12 @@
     <div class="px-6 py-4">
       <div class="text-xl mb-2">
         <div>
-          <div v-if="editMode" class="flex flex-col">
+          <div class="flex flex-col">
             <p class="text-sm">First name:</p>
             <input
-              :class="{ hidden: $v.userCopy.firstName.$error }"
-              class="pl-2 w-full border border-gray-400 rounded"
+              class="pl-2 w-full border rounded bg-white"
+              :disabled="!editMode"
+              :class="[!editMode ? 'border-transparent' : 'border-gray-400']"
               v-model="userCopy.firstName"
             />
             <p
@@ -25,40 +25,27 @@
               }"
               class="text-red-400 h-6 text-sm"
             >
-              First name is necessary
+              First name is required
             </p>
           </div>
-
-          <span v-else>
-            First name:
-            <span class="font-medium">
-              {{ userCopy.firstName }}
-            </span>
-          </span>
         </div>
 
         <div>
-          <div v-if="editMode" class="flex flex-col">
+          <div class="flex flex-col">
             <p class="text-sm">Last name:</p>
             <input
-              v-if="editMode"
-              class="pl-2 w-full border border-gray-400 rounded"
+              class="pl-2 w-full border rounded bg-white"
+              :disabled="!editMode"
+              :class="[!editMode ? 'border-transparent' : 'border-gray-400']"
               v-model="userCopy.lastName"
             />
             <p
               :class="{ invisible: $v.userCopy.lastName.required }"
               class="text-red-400 h-6 text-sm"
             >
-              Last name is necessary
+              Last name is required
             </p>
           </div>
-
-          <span v-else>
-            Last name:
-            <span class="font-medium">
-              {{ userCopy.lastName }}
-            </span>
-          </span>
         </div>
       </div>
     </div>
@@ -85,10 +72,6 @@
       <button
         v-if="userCopy.id"
         class="text-sm text-red-500 font-medium mb-4 border border-red-500 py-2 px-4 rounded hover:bg-red-500 hover:text-white"
-        :class="{
-          'pointer-events-none opacity-60':
-            !$v.userCopy.firstName.required || !$v.userCopy.lastName.required,
-        }"
         @click="deleteUser(user)"
       >
         Delete

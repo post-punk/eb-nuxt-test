@@ -4,7 +4,7 @@ import {
   actionTree,
   getAccessorType,
 } from "typed-vuex";
-import { userList } from "@/mock-data/user-list";
+import { userList as mockUserList } from "@/mock-data/user-list";
 import { UserConfig } from "@/types/UserConfig";
 
 export const state = () => ({
@@ -15,6 +15,11 @@ export type RootState = ReturnType<typeof state>;
 
 export const getters = getterTree(state, {
   getUserList: (state) => state.userList,
+  getUserById: (state) => (routeId: string) => {
+    return state.userList.find(
+      (user) => String(user.id).toLowerCase() === routeId
+    );
+  },
 });
 
 enum mutationKeys {
@@ -30,11 +35,11 @@ export const mutations = mutationTree(state, {
 export const actions = actionTree(
   { state, getters, mutations },
   {
-    async setUserList({ state, commit }): Promise<void> {
+    async fetchUserList({ state, commit }): Promise<void> {
       // to avoid unnecessary "requests",
       // populate the user list only if it's empty
       if (!state.userList.length) {
-        commit(mutationKeys.SET_USER_LIST, userList);
+        commit(mutationKeys.SET_USER_LIST, mockUserList);
       }
     },
     setUser({ state, commit }, payload: UserConfig): void {

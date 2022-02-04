@@ -9,17 +9,17 @@
     </nuxt-link>
     <p class="font-medium mb-2">Click on a user card to edit it.</p>
 
-    <!-- grid -->
     <div
       class="overview-page__user-card-wrapper grid grid-cols-auto sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 lg:gap-6 xl:gap-8"
     >
-      <div v-for="user in myUserList" :key="user.id">
-        <nuxt-link :to="`user/${user.id}`">
-          <user-card :user="user" />
-        </nuxt-link>
-      </div>
+      <nuxt-link
+        v-for="user in userList"
+        :key="user.id"
+        :to="`user/${user.id}`"
+      >
+        <user-card :user="user" />
+      </nuxt-link>
     </div>
-    <!-- /grid -->
   </div>
 </template>
 
@@ -34,12 +34,12 @@ export default Vue.extend({
   },
   data() {
     return {
-      myUserList: [] as UserConfig[],
+      userList: this.$store.getters.getUserList,
     };
   },
   async mounted() {
-    await this.$store.dispatch("setUserList");
-    this.myUserList = this.$store.getters.getUserList;
+    await this.$store.dispatch("fetchUserList");
+    this.userList = this.$store.getters.getUserList;
   },
 });
 </script>

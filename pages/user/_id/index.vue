@@ -52,13 +52,16 @@ export default Vue.extend({
     },
   },
   async mounted() {
-    await this.$store.dispatch("setUserList");
-    // if the user object isn't already passed in as a prop
-    // as is the case on /overview page, find it by route ID
+    await this.$store.dispatch("fetchUserList");
+    // ensure that this page works on refresh:
     if (this.$store.getters.getUserList.length) {
-      this.user = this.$store.getters.getUserList?.find(
-        (user: UserConfig) => String(user.id) === this.$route.params.id
-      );
+      const foundUser = this.$store.getters.getUserById(this.$route.params.id);
+
+      if (foundUser) {
+        this.user = foundUser;
+      } else {
+        this.$router.push("/overview");
+      }
     }
   },
 });
